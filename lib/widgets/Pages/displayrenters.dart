@@ -197,7 +197,7 @@ class _DisplayRentersState extends State<DisplayRenters> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('list of tenants'),
+        title: Text('list of teants'),
       ),
       backgroundColor: Theme.of(context).canvasColor,
       body: FutureBuilder<List<Renter>>(
