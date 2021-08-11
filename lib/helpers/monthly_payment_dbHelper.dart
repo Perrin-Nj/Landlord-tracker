@@ -2,12 +2,21 @@ import '../helpers/tenants_db_helper.dart';
 import '../models/monthPayment.dart';
 
 class MonthPaydb {
-  String monthPayTable = 'Month_table_pay';
-  String colId = 'id';
-  String coName = 'name';
-  String colnewPayMonth = 'newPayMonth';
-  String colmoneyPaid = 'moneyPaid';
-  String monthlyRemainder = 'monthlyRemainder';
+  String monthPayTable = 'table_MonthPayments';
+  String colId2 = 'id';
+  String colJan = 'januaryPay';
+  String colfeb = 'februaryPay';
+  String colmar = 'marchPay';
+  String colapr = 'aprilPay';
+  String colmay = 'mayPay';
+  String coljun = 'junePay';
+  String colJul = 'julyPay';
+  String colAug = 'augustPay';
+  String colsep = 'septemberPay';
+  String coloct = 'octoberPay';
+  String colnov = 'novemberPay';
+  String coldec = 'decemberPay';
+  String yearPayCompletedcol = 'yearPayComplete';
 
   MonthPaydb._();
   static final MonthPaydb db = MonthPaydb._();
@@ -16,11 +25,20 @@ class MonthPaydb {
     final db = await RenterDatabase.db.database;
 
     var payments = await db!.query(monthPayTable, columns: [
-      colId,
-      coName,
-      colnewPayMonth,
-      colmoneyPaid,
-      monthlyRemainder
+      colId2,
+      colJan,
+      colfeb,
+      colmar,
+      colapr,
+      colmay,
+      coljun,
+      colJul,
+      colAug,
+      colsep,
+      coloct,
+      colnov,
+      coldec,
+      yearPayCompletedcol,
     ]);
 
     List<MonthlyPayment>? monthlypaymentList = [];

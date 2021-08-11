@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:landlord_tracking/widgets/Pages/payment_page.dart';
+
+import '../widgets/Pages/payment_page.dart';
 import 'widgets/bottom_navbar_menu.dart';
-import 'widgets/button_widget.dart';
 import 'widgets/navigation_drawer_widget.dart';
 
 void main() {
@@ -55,7 +55,10 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: BottomNavBarMenu(),
       ),
-      routes: {'/tenants-page': (ctx) => PaymentPage()},
+      routes: {
+        '/tenants-page': (ctx) => PaymentPage(),
+        // '/payment-page': (ctx) => DisplayRenters(),
+      },
     );
 
     //);

@@ -1,15 +1,33 @@
 class MonthlyPayment {
   int? id;
-  String? name;
-  int? newPayMonth; // DateTime.now().month;
-  int? moneyPaid;
-  int? monthlyRemainder;
+  int? januaryPay;
+  int? februaryPay;
+  int? marchPay;
+  int? aprilPay;
+  int? mayPay;
+  int? junePay;
+  int? julyPay;
+  int? augustPay;
+  int? septemberPay;
+  int? octoberPay;
+  int? novemberPay;
+  int? decemberPay;
+  int? yearPayComplete;
 
   MonthlyPayment(
-    this.name,
-    this.newPayMonth,
-    this.moneyPaid,
-    this.monthlyRemainder,
+    this.januaryPay,
+    this.februaryPay,
+    this.marchPay,
+    this.aprilPay,
+    this.mayPay,
+    this.junePay,
+    this.julyPay,
+    this.augustPay,
+    this.septemberPay,
+    this.octoberPay,
+    this.novemberPay,
+    this.decemberPay,
+    this.yearPayComplete,
   );
 
   Map<String, dynamic> toMap() {
@@ -17,18 +35,36 @@ class MonthlyPayment {
     if (id != null) {
       map['id'] = id;
     }
-    map['name'] = name;
-    map['newPayMonth'] = newPayMonth;
-    map['moneyPaid'] = moneyPaid;
-    map['monthlyRemainder'] = monthlyRemainder;
+    map['januaryPay'] = januaryPay;
+    map['februaryPay'] = februaryPay;
+    map['marchPay'] = marchPay;
+    map['aprilPay'] = aprilPay;
+    map['mayPay'] = mayPay;
+    map['junePay'] = junePay;
+    map['julyPay'] = julyPay;
+    map['augustPay'] = augustPay;
+    map['septemberPay'] = septemberPay;
+    map['octoberPay'] = octoberPay;
+    map['novemberPay'] = novemberPay;
+    map['decemberPay'] = decemberPay;
+    map['yearPayComplete'] = yearPayComplete;
     return map;
   }
 
   MonthlyPayment.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    name = map['name'];
-    newPayMonth = map['newPayMonth'];
-    moneyPaid = map['moneyPaid'];
-    monthlyRemainder = map['monthlyRemainder'];
+    januaryPay = map['januaryPay'];
+    februaryPay = map['februaryPay'];
+    marchPay = map['marchPay'];
+    aprilPay = map['aprilPay'];
+    mayPay = map['mayPay'];
+    junePay = map['junePay'];
+    julyPay = map['julyPay'];
+    augustPay = map['augustPay'];
+    septemberPay = map['septemberPay'];
+    octoberPay = map['octoberPay'];
+    novemberPay = map['novemberPay'];
+    decemberPay = map['decemberPay'];
+    yearPayComplete = map['yearPayComplete'];
   }
 }

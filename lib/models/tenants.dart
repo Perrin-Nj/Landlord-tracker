@@ -5,15 +5,25 @@ class Renter {
   // ignore: non_constant_identifier_names
   String? LastName;
   // ignore: non_constant_identifier_names
-  int? Amount;
+  int? toPayAmount;
   String? date;
+  String? payedDate;
+  int? newPayment;
+  String? newPayMonth; // DateTime.now().month;
+  int? monthlyRemainder;
+  int? PhoneNumber;
 
   Renter(
     //this.id,
     this.FirstName,
     this.LastName,
-    this.Amount,
+    this.toPayAmount,
     this.date,
+    this.payedDate,
+    this.newPayment,
+    this.newPayMonth,
+    this.monthlyRemainder,
+    this.PhoneNumber,
   );
 
   Map<String, dynamic> toMap() {
@@ -23,9 +33,13 @@ class Renter {
     }
     map['firstName'] = FirstName;
     map['lastName'] = LastName;
-    map['amount'] = Amount;
+    map['toPayAmount'] = toPayAmount;
     map['date'] = date;
-
+    map['payedDate'] = payedDate;
+    map['newPayment'] = newPayment;
+    map['newPayMonth'] = newPayMonth;
+    map['monthlyRemainder'] = monthlyRemainder;
+    map['PhoneNumber'] = PhoneNumber;
     return map;
   }
 
@@ -33,7 +47,12 @@ class Renter {
     id = map['id'];
     FirstName = map['firstName'];
     LastName = map['lastName'];
-    Amount = map['amount'];
+    toPayAmount = map['toPayAmount'];
     date = map['date'];
+    payedDate = map['payedDate'];
+    newPayment = map['newPayment'];
+    newPayMonth = map['newPayMonth'];
+    monthlyRemainder = map['monthlyRemainder'];
+    PhoneNumber = map['PhoneNumber'];
   }
 }

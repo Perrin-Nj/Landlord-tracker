@@ -19,56 +19,23 @@ class AddRenter extends StatefulWidget {
 class _AddRenterState extends State<AddRenter> {
   //RenterDatabase? databaseHelper;
 
+  final _formKey = GlobalKey<FormState>();
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final amountController = TextEditingController();
+  final phoneController = TextEditingController();
   final dateSelectedController = TextEditingController();
   DateTime? selectedDat;
 
   Renter? renterList;
   int count = 0;
 
-  // ignore: non_constant_identifier_names
-  void ShowDialog(String title, String message) {
-    AlertDialog alertDialog = AlertDialog(
-      title: Text(
-        title,
-        style: TextStyle(
-          color: Colors.red,
-          fontFamily: 'DancingScript',
-          fontSize: 21,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      content: Text(message),
-    );
-    showDialog(
-      barrierColor: Color.fromRGBO(234, 43, 134, 0.1),
-      context: context,
-      builder: (_) => alertDialog,
-    );
-  }
-
-  void submitData() {
-    final enteredFname = firstNameController.text;
-    final enteredLname = lastNameController.text;
-    final enteredAmount = amountController.text;
-    if (enteredFname.isEmpty || enteredLname.isEmpty)
-      return ShowDialog('Unfilled data',
-          'Please, make sure to fill Last name and First Name');
-    if (enteredAmount.toLowerCase().contains(RegExp(r'[A-Z]'), 1)) {
-      return ShowDialog('Invalid Amount', 'The amount should be a number');
-    }
-    if (selectedDat == null) {
-      return ShowDialog('Unable to get the date', 'Please, select a date');
-    }
-  }
-
   void showDatepicker() {
     showDatePicker(
       context: context,
-      initialDate: DateTime(2020),
-      firstDate: DateTime(1990),
+      initialDate: DateTime(2021),
+      firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
       if (pickedDate == null) {
@@ -80,13 +47,14 @@ class _AddRenterState extends State<AddRenter> {
     });
   }
 
-  SingleChildScrollView AddTenantForm(
+  SingleChildScrollView addTenantForm(
     BuildContext context,
     FocusScopeNode currentFocus,
     TextEditingController firstNController,
     TextEditingController lastNController,
     TextEditingController amtController,
     TextEditingController dateSelectedController,
+    TextEditingController phoneController,
     DateTime? selectDate,
   ) {
     return SingleChildScrollView(
@@ -106,42 +74,79 @@ class _AddRenterState extends State<AddRenter> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                TextField(
-                  decoration: InputDecoration(labelText: 'First Name'),
-                  controller: firstNController,
-                  keyboardType: TextInputType.name,
-                  // focusNode: firstNameFocus,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'First Name'),
+                        controller: firstNController,
+                        keyboardType: TextInputType.name,
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.contains(RegExp(r'[0-9]')) ||
+                              value.contains(RegExp('&,(,),\$,*,^,+,²,|,'))) {
+                            return 'Please make sure to enter a valid First name';
+                          }
+                          return null;
+                        },
+                        // focusNode: firstNameFocus,
+                      ),
+                    ],
+                  ),
                 ),
-                TextField(
+                TextFormField(
                   decoration: InputDecoration(labelText: 'Last Name'),
                   controller: lastNController,
                   keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.contains(RegExp(r'[0-9]')) ||
+                        value.contains(RegExp('&,(,),\$,*,^,+,²,|,'))) {
+                      return 'Please make sure to enter a valid Last name';
+                    }
+                    return null;
+                  },
                   // focusNode: firstNameFocus,
                 ),
-                TextField(
+                TextFormField(
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(labelText: 'Monthly Loan Amount'),
                   controller: amtController,
                   keyboardType: TextInputType.number,
-                  onSubmitted: (_) => {
-                    !currentFocus.hasPrimaryFocus
-                        ? currentFocus.unfocus()
-                        : currentFocus.hasFocus
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.contains(RegExp(r'[A-Z]'))) {
+                      return 'Please enter correct phone number';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(labelText: 'Phone number'),
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.contains(RegExp(r'[A-Z]'))) {
+                      return 'Please enter correct phone number';
+                    }
+                    return null;
                   },
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 6,
                 ),
                 Row(
-                  //date selection
-                  children: [
-                    // TextField(
-                    //   controller: dateSelectedController,
-                    //   enabled: false,
-                    // ),
-                    // selectDate == null ?
-                    //   dateSelectedController.text  = "No date selected!!" : DateFormat.yMEd().format(selectDate),
+                  //date sele
+                  //ction
 
+                  children: [
                     Text(
                       selectDate == null
                           ? 'No date selected!!'
@@ -151,8 +156,9 @@ class _AddRenterState extends State<AddRenter> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+
                     SizedBox(
-                      width: 15,
+                      width: 9,
                     ),
                     // ignore: deprecated_member_use
                     RaisedButton(
@@ -164,26 +170,30 @@ class _AddRenterState extends State<AddRenter> {
                   ],
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        selectDate = null;
-                        //selectDate!.toIso8601String();
-
-                        setState(() {
-                          firstNController.clear();
-                          lastNController.clear();
-                          amtController.clear();
-                          selectDate = null;
-                        });
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) {
-                          return AddRenter();
-                        }));
+                        setState(
+                          () {
+                            selectedDat = null;
+                            firstNController.clear();
+                            lastNController.clear();
+                            amtController.clear();
+                            phoneController.clear();
+                          },
+                        );
+                        // once submitted, pop the most opened screen and load addrenter()
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) {
+                              return DisplayRenters();
+                            },
+                          ),
+                        );
                       },
                       child: const Text(
                         'Cancel   ',
@@ -208,21 +218,29 @@ class _AddRenterState extends State<AddRenter> {
                             firstNController.text,
                             lastNController.text,
                             int.parse(amtController.text),
-                            selectDate.toString(),
+                            selectDate!.toString(),
+                            null,
+                            0,
+                            null,
+                            00,
+                            int.parse(phoneController.text),
                           ),
                         );
-                        selectDate = null;
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) {
-                            return AddRenter();
-                          }),
-                        );
                         setState(() {
+                          _formKey.currentState!.validate();
+
+                          selectedDat = null;
                           firstNController.clear();
                           lastNController.clear();
                           amtController.clear();
-                          selectDate = null;
+                          phoneController.clear();
                         });
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) {
+                            return DisplayRenters();
+                          }),
+                        );
+
                         FocusScopeNode currentFocus = FocusScope.of(context);
                         if (!currentFocus.hasPrimaryFocus) {
                           currentFocus.unfocus();
@@ -233,7 +251,7 @@ class _AddRenterState extends State<AddRenter> {
                         textAlign: TextAlign.center,
                         style: TextStyle(fontWeight: FontWeight.w900),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],
@@ -251,14 +269,16 @@ class _AddRenterState extends State<AddRenter> {
       appBar: AppBar(
         title: const Text('Add Tenant'),
       ),
-      body: AddTenantForm(
-          context,
-          currentFocus,
-          firstNameController,
-          lastNameController,
-          amountController,
-          dateSelectedController,
-          selectedDat),
+      body: addTenantForm(
+        context,
+        currentFocus,
+        firstNameController,
+        lastNameController,
+        amountController,
+        dateSelectedController,
+        phoneController,
+        selectedDat,
+      ),
     );
   }
 

@@ -10,21 +10,30 @@ class RenterDatabase {
   String colId = 'id';
   String colfName = 'firstName';
   String colLName = 'lastName';
-  String colAmount = 'amount';
   String colDate = 'date';
-
-  //table_payment
-  String paymentTable = 'table_pay';
-  String colName = 'name';
   String colToPayAmount = 'toPayAmount';
   String colNewPayment = 'newPayment';
   String colpDate = 'payedDate';
-
-  String monthPayTable = 'Month_table_pay';
-  String coName = 'name';
   String colnewPayMonth = 'newPayMonth';
   String colmoneyPaid = 'moneyPaid';
   String monthlyRemainder = 'monthlyRemainder';
+  String phoneNumberCol = 'PhoneNumber';
+
+  //table_MonthPayments
+  //-April
+  String aprilTable = 'table_April';
+  String colIdApril = 'idapril';
+  String colnameApril = 'nameapr';
+  String colMoneyPayApril = 'moneyPaid';
+  String colcompletePayApril = 'completedPayement';
+  String colmoneyToPayApril = 'moneyToPay';
+  //-August
+  String augustTable = 'table_August';
+  String colIdAugust = 'idaugust';
+  String colnameAugust = 'nameaug';
+  String colMoneyPayAugust = 'moneyPaid';
+  String colcompletePayAugust = 'completedPayement';
+  String colmoneyToPayAugust = 'moneyToPay';
 
   RenterDatabase._();
   static final RenterDatabase db = RenterDatabase._();
@@ -57,28 +66,38 @@ class RenterDatabase {
           "$colId INTEGER PRIMARY KEY,"
           "$colfName TEXT,"
           "$colLName TEXT,"
-          "$colAmount INTEGER,"
-          "$colDate TEXT"
-          ")",
-        );
-
-        await database.execute(
-          "CREATE TABLE $paymentTable ("
-          "$colId INTEGER PRIMARY KEY,"
-          "$colName TEXT,"
           "$colToPayAmount INTEGER,"
+          "$colNewPayment INTEGER,"
+          "$colDate TEXT,"
           "$colpDate TEXT,"
-          "$colNewPayment TEXT"
+          "$colnewPayMonth TEXT,"
+          "$colmoneyPaid INTEGER,"
+          "$monthlyRemainder INTEGER,"
+          "$phoneNumberCol INTEGER"
           ")",
         );
 
+        //-April
         await database.execute(
-          "CREATE TABLE $monthPayTable ("
-          "$colId INTEGER PRIMARY KEY,"
-          "$coName TEXT,"
-          "$colnewPayMonth INTEGER,"
-          "$colmoneyPaid INTEGER,"
-          "$monthlyRemainder INTEGER"
+          "CREATE TABLE $aprilTable ("
+          "$colIdApril INTEGER PRIMARY KEY,"
+          "$colnameApril TEXT,"
+          "$colMoneyPayApril INTEGER,"
+          "$colcompletePayApril INTEGER,"
+          "$colmoneyToPayApril INTEGER"
+          //will be converted back to bool as: Boolean flag2 = (intValue == 1)? true : false;
+          ")",
+        );
+
+        //-August
+        await database.execute(
+          "CREATE TABLE $augustTable ("
+          "$colIdAugust INTEGER PRIMARY KEY,"
+          "$colnameAugust TEXT,"
+          "$colMoneyPayAugust INTEGER,"
+          "$colcompletePayAugust INTEGER,"
+          "$colmoneyToPayAugust INTEGER"
+          //will be converted back to bool as: Boolean flag2 = (intValue == 1)? true : false;
           ")",
         );
       },
@@ -88,8 +107,22 @@ class RenterDatabase {
   Future<List<Renter>> getRenters() async {
     final db = await database;
 
-    var tenants = await db!.query(rentersTable,
-        columns: [colId, colfName, colLName, colAmount, colDate]);
+    var tenants = await db!.query(
+      rentersTable,
+      columns: [
+        colId,
+        colfName,
+        colLName,
+        colToPayAmount,
+        colNewPayment,
+        colDate,
+        colpDate,
+        colnewPayMonth,
+        colmoneyPaid,
+        monthlyRemainder,
+        phoneNumberCol,
+      ],
+    );
 
     List<Renter>? renterList = [];
 
