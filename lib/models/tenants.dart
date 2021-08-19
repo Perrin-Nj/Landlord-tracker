@@ -10,7 +10,7 @@ class Renter {
   String? payedDate;
   int? newPayment;
   String? newPayMonth; // DateTime.now().month;
-  int? monthlyRemainder;
+  int? completedPayment;
   int? PhoneNumber;
 
   Renter(
@@ -22,7 +22,7 @@ class Renter {
     this.payedDate,
     this.newPayment,
     this.newPayMonth,
-    this.monthlyRemainder,
+    this.completedPayment,
     this.PhoneNumber,
   );
 
@@ -38,7 +38,7 @@ class Renter {
     map['payedDate'] = payedDate;
     map['newPayment'] = newPayment;
     map['newPayMonth'] = newPayMonth;
-    map['monthlyRemainder'] = monthlyRemainder;
+    map['completedPayment'] = completedPayment;
     map['PhoneNumber'] = PhoneNumber;
     return map;
   }
@@ -52,7 +52,7 @@ class Renter {
     payedDate = map['payedDate'];
     newPayment = map['newPayment'];
     newPayMonth = map['newPayMonth'];
-    monthlyRemainder = map['monthlyRemainder'];
+    completedPayment = map['completedPayment'];
     PhoneNumber = map['PhoneNumber'];
   }
 }

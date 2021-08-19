@@ -3,11 +3,12 @@ import '../tenants_db_helper.dart';
 
 class AugustDb {
   String augustTable = 'table_August';
-  String colId2 = 'idaugust';
-  String colname = 'nameaug';
+  String colId2 = 'id';
+  String colname = 'name';
   String colMoneyPay = 'moneyPaid';
   String colcompletePay = 'completedPayement';
   String colmoneyToPay = 'moneyToPay';
+  String colRemainder = 'remainder';
 
   AugustDb._();
   static final AugustDb db = AugustDb._();
@@ -21,6 +22,7 @@ class AugustDb {
       colMoneyPay,
       colcompletePay,
       colmoneyToPay,
+      colRemainder,
     ]);
 
     List<AugustModel>? monthlypaymentList = [];

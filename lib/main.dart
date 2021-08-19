@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../widgets/Pages/payment_page.dart';
+import 'widgets/Pages/displayrenters.dart';
 import 'widgets/bottom_navbar_menu.dart';
 import 'widgets/navigation_drawer_widget.dart';
 
@@ -57,7 +58,6 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/tenants-page': (ctx) => PaymentPage(),
-        // '/payment-page': (ctx) => DisplayRenters(),
       },
     );
 

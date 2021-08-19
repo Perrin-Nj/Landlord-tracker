@@ -4,13 +4,15 @@ class AprilModel {
   int? moneyPaid;
   int? completedPayement;
   int? moneyToPay;
+  int? remainder;
 
   AprilModel({
-    required this.idapril,
+    //required this.idapril,
     required this.nameapr,
     required this.moneyPaid,
     required this.completedPayement,
     required this.moneyToPay,
+    required this.remainder,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,18 +20,20 @@ class AprilModel {
     if (idapril != null) {
       map['idapril'] = idapril;
     }
-    map['nameapr'] = nameapr;
+    map['name'] = nameapr;
     map['moneyPaid'] = moneyPaid;
     map['completedPayement'] = completedPayement;
     map['moneyToPay'] = moneyToPay;
+    map['remainder'] = remainder;
     return map;
   }
 
   AprilModel.fromMap(Map<String, dynamic> map) {
-    idapril = map['idapril'];
+    idapril = map['id'];
     nameapr = map['name'];
     moneyPaid = map['moneyPaid'];
     completedPayement = map['completedPayement'];
     moneyToPay = map['moneyToPay'];
+    remainder = map['remainder'];
   }
 }

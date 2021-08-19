@@ -3,12 +3,15 @@ class MarchModel {
   String? name;
   int? moneyPaid;
   int? completedPayement;
+  int? remainder;
+  int? moneyToPay;
 
   MarchModel({
-    required this.id,
     required this.name,
     required this.moneyPaid,
+    required this.moneyToPay,
     required this.completedPayement,
+    required this.remainder,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,9 +19,12 @@ class MarchModel {
     if (id != null) {
       map['id'] = id;
     }
+
     map['name'] = name;
     map['moneyPaid'] = moneyPaid;
     map['completedPayement'] = completedPayement;
+    map['moneyToPay'] = moneyToPay;
+    map['remainder'] = remainder;
     return map;
   }
 
@@ -27,5 +33,7 @@ class MarchModel {
     name = map['name'];
     moneyPaid = map['moneyPaid'];
     completedPayement = map['completedPayement'];
+    moneyToPay = map['moneyToPay'];
+    remainder = map['remainder'];
   }
 }

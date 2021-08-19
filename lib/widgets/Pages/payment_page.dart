@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:landlord_tracking/helpers/monthHelpers/aprilHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/decemberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/februaryHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/januaryHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/julyHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/juneHelper%20.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/marchHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/mayHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/novemberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/octoberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/septemberHelper.dart';
 
 import 'package:landlord_tracking/helpers/tenants_db_helper.dart';
 import 'package:landlord_tracking/models/monthModels/aprilModel.dart';
+import 'package:landlord_tracking/models/monthModels/decemberModel.dart';
+import 'package:landlord_tracking/models/monthModels/februaryModel.dart';
+import 'package:landlord_tracking/models/monthModels/januaryModel.dart';
+import 'package:landlord_tracking/models/monthModels/julyModel.dart';
+import 'package:landlord_tracking/models/monthModels/juneModel%20.dart';
+import 'package:landlord_tracking/models/monthModels/marchModel.dart';
+import 'package:landlord_tracking/models/monthModels/mayModel.dart';
+import 'package:landlord_tracking/models/monthModels/novemberModel.dart';
+import 'package:landlord_tracking/models/monthModels/octoberModel.dart';
+import 'package:landlord_tracking/models/monthModels/septemberModel.dart';
 
 import 'package:landlord_tracking/models/tenants.dart';
 
@@ -21,14 +41,75 @@ class _PaymentPageState extends State<PaymentPage> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final name1 = routeArgs['name1'];
     final name2 = routeArgs['name2'];
+    final routeArg =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final registeredDate = routeArg['registeredDate'];
+    final payedDate = routeArg['payedDate'];
+    final phone = routeArg['phoneNumber'];
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('$name1 $name2'),
       ),
-      body: SingleChildScrollView(
-        child: const MyCustomForm(),
+      body: Column(
+        children: [
+          Card(
+            color: Theme.of(context).cardColor,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Last Pay:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      payedDate != null
+                          ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(payedDate)).toString()}'
+                          : '${DateFormat.yMMMMEEEEd().format(DateTime.parse(registeredDate)).toString()}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Phone Number:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      phone.toString(),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ],
+                ), // //(if lastpay from dbPayments is null, then show no last pay, else, show a last pay)
+              ],
+            ),
+          ),
+          const MyCustomForm(),
+        ],
       ),
     );
   }
@@ -88,44 +169,255 @@ class MyCustomFormState extends State<MyCustomForm> {
     String registeredDate,
     String payedDate,
     int newPayment,
-    int payMonth,
-    int remainder,
     int phone,
+    int aprilRemainder,
+    int augustRemainder,
+    int decrem,
+    int febrem,
+    int janrem,
+    int julrem,
+    int junrem,
+    int marrem,
+    int mayrem,
+    int novrem,
+    int octrem,
+    int seprem,
+    List<bool> listOfCompletionPay,
   ) {
-    RenterDatabase.db.update(
-        new Renter(
-            name1,
-            name2,
-            toPay,
-            registeredDate,
-            selectDate!.toIso8601String(),
-            newPayment,
-            '$payMonth ',
-            toPay - newPayment,
-            phone),
-        id);
-
-    if (payMonth == 4) {
-      AprilDb.db.insert(
-        new AprilModel(
-          idapril: id,
-          nameapr: name1,
-          moneyPaid: newPayment,
-          completedPayement: 1,
-          moneyToPay: toPay,
-        ),
-      );
+    //switching for completion of payment
+    switch (chosenValue) {
+      case "april":
+        AprilDb.db.update(
+            new AprilModel(
+              nameapr: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || aprilRemainder - newPayment == 0
+                      ? 1
+                      : 0,
+              moneyToPay: toPay,
+              remainder: aprilRemainder == -1
+                  ? toPay - newPayment
+                  : aprilRemainder - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || aprilRemainder - newPayment == 0) {
+          listOfCompletionPay[3] = true;
+        }
+        break;
+      case "january":
+        JanuaryDb.db.update(
+            new JanuaryModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || janrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  janrem == -1 ? toPay - newPayment : janrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || janrem - newPayment == 0) {
+          listOfCompletionPay[0] = true;
+        }
+        break;
+      case "february":
+        FebruaryDb.db.update(
+            new FebruaryModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || febrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  febrem == -1 ? toPay - newPayment : febrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || febrem - newPayment == 0) {
+          listOfCompletionPay[1] = true;
+        }
+        break;
+      case "march":
+        MarchDb.db.update(
+            new MarchModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || marrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  marrem == -1 ? toPay - newPayment : marrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || marrem - newPayment == 0) {
+          listOfCompletionPay[2] = true;
+        }
+        break;
+      case "may":
+        MayDb.db.update(
+            new MayModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || mayrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  mayrem == -1 ? toPay - newPayment : mayrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || mayrem - newPayment == 0) {
+          listOfCompletionPay[4] = true;
+        }
+        break;
+      case "june":
+        JuneDb.db.update(
+            new JuneModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || junrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  junrem == -1 ? toPay - newPayment : junrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || junrem - newPayment == 0) {
+          listOfCompletionPay[5] = true;
+        }
+        break;
+      case "july":
+        JulyDb.db.update(
+            new JulyModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || julrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  julrem == -1 ? toPay - newPayment : julrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || julrem - newPayment == 0) {
+          listOfCompletionPay[6] = true;
+        }
+        break;
+      case "august":
+        JuneDb.db.update(
+            new JuneModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || augustRemainder - newPayment == 0
+                      ? 1
+                      : 0,
+              moneyToPay: toPay,
+              remainder: augustRemainder == -1
+                  ? toPay - newPayment
+                  : augustRemainder - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || augustRemainder - newPayment == 0) {
+          listOfCompletionPay[7] = true;
+        }
+        break;
+      case "november":
+        NovemberDb.db.update(
+            new NovemberModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || novrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  novrem == -1 ? toPay - newPayment : novrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || novrem - newPayment == 0) {
+          listOfCompletionPay[10] = true;
+        }
+        break;
+      case "october":
+        OctoberDb.db.update(
+            new OctoberModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || octrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  octrem == -1 ? toPay - newPayment : octrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || octrem - newPayment == 0) {
+          listOfCompletionPay[9] = true;
+        }
+        break;
+      case "september":
+        SeptemberDb.db.update(
+            new SeptemberModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || seprem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  seprem == -1 ? toPay - newPayment : seprem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || seprem - newPayment == 0) {
+          listOfCompletionPay[8] = true;
+        }
+        break;
+      case "december":
+        DecemberDb.db.update(
+            new DecemberModel(
+              name: name1,
+              moneyPaid: newPayment,
+              completedPayement:
+                  toPay - newPayment == 0 || decrem - newPayment == 0 ? 1 : 0,
+              moneyToPay: toPay,
+              remainder:
+                  decrem == -1 ? toPay - newPayment : decrem - newPayment,
+            ),
+            id);
+        if (toPay - newPayment == 0 || decrem - newPayment == 0) {
+          listOfCompletionPay[11] = true;
+        }
+        break;
+      default:
+        break;
     }
+    RenterDatabase.db.update(
+      new Renter(
+          name1,
+          name2,
+          toPay,
+          registeredDate,
+          selectDate!.toIso8601String(),
+          newPayment,
+          chosenValue,
+          listOfCompletionPay[0] == true &&
+                  listOfCompletionPay[1] == true &&
+                  listOfCompletionPay[2] == true &&
+                  listOfCompletionPay[3] == true &&
+                  listOfCompletionPay[4] == true &&
+                  listOfCompletionPay[5] == true &&
+                  listOfCompletionPay[6] == true &&
+                  listOfCompletionPay[7] == true &&
+                  listOfCompletionPay[8] == true &&
+                  listOfCompletionPay[9] == true &&
+                  listOfCompletionPay[10] == true &&
+                  listOfCompletionPay[11] == true
+              ? 1
+              : 0,
+          phone),
+      id,
+    );
   }
 
   final newPayController = TextEditingController();
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
+
   final _formKey = GlobalKey<FormState>();
-  int? paymentMonth;
   @override
   Widget build(BuildContext context) {
     final routeArgs =
@@ -135,121 +427,55 @@ class MyCustomFormState extends State<MyCustomForm> {
     final name2 = routeArgs['name2'];
     final toPay = routeArgs['toPay'];
     final registeredDate = routeArgs['registeredDate'];
-    final payedDate = routeArgs['payedDate'];
-    final newPayment = routeArgs['newPayment'];
-    final newPayMonth = routeArgs['newPayMonth'];
-    final monthRemainder = routeArgs['monthRemainder'];
+
     final phone = routeArgs['phoneNumber'];
 
     //April
-    final apriltenantid = routeArgs['aprilTenantid2'];
+    final aprilRemainder = routeArgs['aprRemainder'];
+    //august
+    final augustRemainder = routeArgs['augRemainder'];
+    //dec
+    final decrem = routeArgs['decRemainder'];
+    //feb
+    final febrem = routeArgs['febRemainder'];
+    //jan
+    final janrem = routeArgs['janRemainder'];
+    //jul
+    final julrem = routeArgs['julRemainder'];
+    //jun
+    final junrem = routeArgs['junRemainder'];
+    //mar
+    final marrem = routeArgs['marRemainder'];
+    //may
+    final mayrem = routeArgs['mayRemainder'];
+    //nov
+    final novrem = routeArgs['novRemainder'];
+    //oct
+    final octrem = routeArgs['octRemainder'];
+    //sep
+    final seprem = routeArgs['sepRemainder'];
+
+    List<bool> listOfCompletionPay = [];
+    for (int i = 0; i < 13; i++) {
+      listOfCompletionPay.add(false);
+    }
 
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          Card(
-            color: Theme.of(context).cardColor,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Remaining:',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    monthRemainder > 0 && monthRemainder < toPay
-                        ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors
-                                    .red), //if the remaining is less or equal than 0, show green, else, show red... Use db
-                            child: Text(
-                              ' $monthRemainder',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'DancingScript',
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                                color: Colors
-                                    .green), //if the remaining is less or equal than 0, show green, else, show red... Use db
-                            child: Text(
-                              ' $monthRemainder',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'DancingScript',
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          )
-                  ],
-                ),
+          //put month selection...
 
-                Row(
-                  children: [
-                    Text(
-                      'Last Pay:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(
-                      payedDate != null
-                          ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(payedDate)).toString()}'
-                          : '${DateFormat.yMMMMEEEEd().format(DateTime.parse(registeredDate)).toString()}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w300,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Phone Number:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(
-                      phone.toString(),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w300,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ), // //(if lastpay from dbPayments is null, then show no last pay, else, show a last pay)
-              ],
-            ),
-          ),
           //come back here for last payments, should use db
           SizedBox(
-            height: 60,
+            height: 8,
           ),
           Divider(
             color: Colors.green,
             indent: 12,
+            height: 12,
+            thickness: 8,
           ),
           Container(
             child: Text(
@@ -263,6 +489,8 @@ class MyCustomFormState extends State<MyCustomForm> {
           Divider(
             color: Colors.green,
             indent: 12,
+            height: 12,
+            thickness: 8,
           ),
           Container(
             padding: EdgeInsets.only(
@@ -282,48 +510,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               hint: Text('Select the Month'),
               value: chosenValue,
               onChanged: (newVal) {
-                switch (chosenValue) {
-                  case "january":
-                    paymentMonth = 1;
-                    break;
-                  case "february":
-                    paymentMonth = 2;
-                    break;
-                  case "march":
-                    paymentMonth = 3;
-                    break;
-                  case "april":
-                    paymentMonth = 4;
-                    break;
-                  case "may":
-                    paymentMonth = 5;
-                    break;
-                  case "june":
-                    paymentMonth = 6;
-                    break;
-                  case "july":
-                    paymentMonth = 7;
-                    break;
-                  case "august":
-                    paymentMonth = 8;
-                    break;
-                  case "september":
-                    paymentMonth = 9;
-                    break;
-                  case "october":
-                    paymentMonth = 10;
-                    break;
-                  case "november":
-                    paymentMonth = 11;
-                    break;
-                  case "december":
-                    paymentMonth = 12;
-                    break;
-                  default:
-                    paymentMonth = 0;
-                    chosenValue = "Pick a month";
-                    break;
-                }
                 setState(() {
                   chosenValue = newVal as String?;
                 });
@@ -428,9 +614,20 @@ class MyCustomFormState extends State<MyCustomForm> {
                             registeredDate,
                             selectDate!.toIso8601String(),
                             int.parse(newPayController.text),
-                            paymentMonth!,
-                            monthRemainder,
                             phone,
+                            aprilRemainder,
+                            augustRemainder,
+                            decrem,
+                            febrem,
+                            janrem,
+                            julrem,
+                            junrem,
+                            marrem,
+                            mayrem,
+                            novrem,
+                            octrem,
+                            seprem,
+                            listOfCompletionPay,
                           );
 
                           ScaffoldMessenger.of(context).showSnackBar(

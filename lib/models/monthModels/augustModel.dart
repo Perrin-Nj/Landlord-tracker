@@ -4,13 +4,14 @@ class AugustModel {
   int? moneyPaid;
   int? completedPayement;
   int? moneyToPay;
+  int? remainder;
 
   AugustModel({
-    required this.id,
     required this.name,
     required this.moneyPaid,
     required this.completedPayement,
     required this.moneyToPay,
+    required this.remainder,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +23,7 @@ class AugustModel {
     map['moneyPaid'] = moneyPaid;
     map['completedPayement'] = completedPayement;
     map['moneyToPay'] = moneyToPay;
+    map['remainder'] = remainder;
     return map;
   }
 
@@ -31,5 +33,6 @@ class AugustModel {
     moneyPaid = map['moneyPaid'];
     completedPayement = map['completedPayement'];
     moneyToPay = map['moneyToPay'];
+    remainder = map['remainder'];
   }
 }

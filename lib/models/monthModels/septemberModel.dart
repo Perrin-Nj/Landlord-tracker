@@ -2,13 +2,16 @@ class SeptemberModel {
   int? id;
   String? name;
   int? moneyPaid;
+  int? moneyToPay;
   int? completedPayement;
+  int? remainder;
 
   SeptemberModel({
-    required this.id,
     required this.name,
     required this.moneyPaid,
+    required this.moneyToPay,
     required this.completedPayement,
+    required this.remainder,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,9 +19,12 @@ class SeptemberModel {
     if (id != null) {
       map['id'] = id;
     }
+
     map['name'] = name;
     map['moneyPaid'] = moneyPaid;
     map['completedPayement'] = completedPayement;
+    map['moneyToPay'] = moneyToPay;
+    map['remainder'] = remainder;
     return map;
   }
 
@@ -27,5 +33,7 @@ class SeptemberModel {
     name = map['name'];
     moneyPaid = map['moneyPaid'];
     completedPayement = map['completedPayement'];
+    moneyToPay = map['moneyToPay'];
+    remainder = map['remainder'];
   }
 }

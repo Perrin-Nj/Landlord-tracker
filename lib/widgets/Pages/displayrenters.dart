@@ -2,17 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:landlord_tracking/helpers/monthHelpers/aprilHelper.dart';
-import 'package:landlord_tracking/helpers/monthly_payment_dbHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/decemberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/februaryHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/januaryHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/julyHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/juneHelper%20.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/marchHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/mayHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/novemberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/octoberHelper.dart';
+import 'package:landlord_tracking/helpers/monthHelpers/septemberHelper.dart';
 import 'package:landlord_tracking/helpers/tenants_db_helper.dart';
 import 'package:landlord_tracking/models/monthModels/aprilModel.dart';
 import 'package:landlord_tracking/models/monthModels/augustModel.dart';
-import 'package:landlord_tracking/models/monthPayment.dart';
+import 'package:landlord_tracking/models/monthModels/decemberModel.dart';
+import 'package:landlord_tracking/models/monthModels/februaryModel.dart';
+import 'package:landlord_tracking/models/monthModels/januaryModel.dart';
+import 'package:landlord_tracking/models/monthModels/julyModel.dart';
+import 'package:landlord_tracking/models/monthModels/juneModel%20.dart';
+import 'package:landlord_tracking/models/monthModels/marchModel.dart';
+import 'package:landlord_tracking/models/monthModels/mayModel.dart';
+import 'package:landlord_tracking/models/monthModels/novemberModel.dart';
+import 'package:landlord_tracking/models/monthModels/octoberModel.dart';
+import 'package:landlord_tracking/models/monthModels/septemberModel.dart';
 import 'package:landlord_tracking/models/tenants.dart';
 import 'package:landlord_tracking/widgets/Pages/addRenters_page.dart';
+import 'package:landlord_tracking/widgets/multiMenuItems_ListTenants.dart';
+import 'package:landlord_tracking/widgets/singleMenuItem_ListTenants.dart';
 import '../../helpers/monthHelpers/aprilHelper.dart';
 import '../../helpers/monthHelpers/augustHelper.dart';
 
 import '../dialogs.dart';
+import 'Monthly_listofPayment.dart';
 
 enum SlidableAction { Edit, Delete }
 bool tappedOnTenantConfirm = false;
@@ -51,17 +72,91 @@ class _DisplayRentersState extends State<DisplayRenters> {
   }
 
   //for getting data from monthDb
-  List<AprilModel> aprilListData = [];
-  List<AugustModel> augustListData = [];
 
-  AprilModel? aprilData;
-  AugustModel? augustData;
+//April
   int? aprId;
   int? aprMoneypaid;
+  int? aprRemain;
   String? aprName;
   int? aprComplete;
 
-  bool changeDateclicked = false;
+//August
+  int? augId;
+  int? augMoneypaid;
+  int? augRemain;
+  String? augName;
+  int? augComplete;
+
+//dec
+  int? decId;
+  int? decMoneypaid;
+  int? decRemain;
+  String? decName;
+  int? decComplete;
+
+//feb
+  int? febId;
+  int? febMoneypaid;
+  int? febRemain;
+  String? febName;
+  int? febComplete;
+
+//jan
+  int? janId;
+  int? janMoneypaid;
+  int? janRemain;
+  String? janName;
+  int? janComplete;
+
+//jul
+  int? julId;
+  int? julMoneypaid;
+  int? julRemain;
+  String? julName;
+  int? julComplete;
+
+//jun
+  int? junId;
+  int? junMoneypaid;
+  int? junRemain;
+  String? junName;
+  int? junComplete;
+
+//mar
+  int? marId;
+  int? marMoneypaid;
+  int? marRemain;
+  String? marName;
+  int? marComplete;
+
+//may
+  int? mayId;
+  int? mayMoneypaid;
+  int? mayRemain;
+  String? mayName;
+  int? mayComplete;
+
+//nov
+  int? novId;
+  int? novMoneypaid;
+  int? novRemain;
+  String? novName;
+  int? novComplete;
+
+//oct
+  int? octId;
+  int? octMoneypaid;
+  int? octRemain;
+  String? octName;
+  int? octComplete;
+
+//sep
+  int? sepId;
+  int? sepMoneypaid;
+  int? sepRemain;
+  String? sepName;
+  int? sepComplete;
+
   void showBottomSheetEditTenant(
     BuildContext ctx,
     Renter tenant,
@@ -204,16 +299,53 @@ class _DisplayRentersState extends State<DisplayRenters> {
     );
   }
 
+  PopupMenuItem<SingleMenuItem> buildItem(SingleMenuItem item) => PopupMenuItem(
+      value: item,
+      child: Row(
+        children: [
+          Icon(item.icon, color: Colors.black, size: 20),
+          const SizedBox(width: 12),
+          Text(
+            item.text,
+          ),
+        ],
+      ));
+  void onSelected(BuildContext context, SingleMenuItem item) {
+    switch (item) {
+      case MenuItems.itemMonthdisplay:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => MonthlyDisplay()));
+        break;
+      // case MenuItems.itemSearch:
+      //   SearchTapped = true;
+      //   break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final route =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    // final listOfCompletionPay = route['ListPaymentCompletion'];
+
+    final ScrollController _scrollController = ScrollController();
     return Scaffold(
       appBar: AppBar(
         title: Text('list of tenants'),
+        actions: [
+          PopupMenuButton<SingleMenuItem>(
+              onSelected: (item) => onSelected(context, item),
+              itemBuilder: (context) => [
+                    ...MenuItems.items.map((buildItem)).toList(),
+                  ]),
+        ],
       ),
       backgroundColor: Theme.of(context).canvasColor,
       body: Column(
         children: [
           Expanded(
+            flex: 120,
             child: FutureBuilder<List<Renter>>(
               future: RenterDatabase.db.getRenters(),
               builder:
@@ -239,14 +371,25 @@ class _DisplayRentersState extends State<DisplayRenters> {
                     ),
                     height: 400,
                     padding: EdgeInsets.symmetric(vertical: 10),
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: tenants!.length,
-                      itemBuilder: (context, index) {
-                        final tenant = tenants[index];
-                        //to load new page when user taps item
-                        return listOfTenants(context, tenant, tenants, index);
-                      },
+                    child: Scrollbar(
+                      isAlwaysShown: true,
+                      showTrackOnHover: true,
+                      controller: _scrollController,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        physics: BouncingScrollPhysics(),
+                        itemCount: tenants!.length,
+                        itemBuilder: (context, index) {
+                          final tenant = tenants[index];
+                          //to load new page when user taps item
+                          return listOfTenants(
+                            context,
+                            tenant,
+                            tenants,
+                            index,
+                          );
+                        },
+                      ),
                     ),
                   );
                 } else if (snapshot.connectionState ==
@@ -262,60 +405,485 @@ class _DisplayRentersState extends State<DisplayRenters> {
               },
             ),
           ),
-          //Get Records from Months table
+          SizedBox(height: 80),
           //-->April
-          Expanded(
-            child: FutureBuilder<List<AprilModel>>(
-                future: AprilDb.db.getRawPayments(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<AprilModel>> snaps) {
-                  if (snaps.hasData) {
-                    List<AprilModel> aprilListData = snaps.data!;
-                    return Container(
-                      height: 1,
-                      width: 1,
-                      child: ListView.builder(
-                        itemCount: aprilListData.length,
-                        itemBuilder: (context, index) {
-                          AprilModel aprilData = aprilListData[index];
-                          aprId = aprilData.idapril;
-                          aprMoneypaid = aprilData.moneyPaid;
-                          aprName = aprilData.nameapr;
-                          aprComplete = aprilData.completedPayement;
-                          return Center();
-                        },
-                      ),
-                    );
-                  } else {
-                    return Center();
-                  }
-                }),
+
+//---------------------------------------------------------------------------------------------
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<AprilModel>>(
+                  future: AprilDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<AprilModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<AprilModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            AprilModel data = listData[index];
+                            aprId = data.idapril;
+                            aprMoneypaid = data.moneyPaid;
+                            aprName = data.nameapr;
+                            aprComplete = data.completedPayement;
+                            aprRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
           ),
 
           //-->August
-          Expanded(
-            child: FutureBuilder<List<AugustModel>>(
-                future: AugustDb.db.getRawPayments(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<AugustModel>> snaps) {
-                  if (snaps.hasData) {
-                    augustListData = snaps.data!;
-                    return Container(
-                        height: 1,
-                        width: 1,
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<AugustModel>>(
+                  future: AugustDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<AugustModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<AugustModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
                         child: ListView.builder(
-                          itemCount: augustListData.length,
+                          itemCount: listData.length,
                           itemBuilder: (context, index) {
-                            augustData = augustListData[index];
-                            return SizedBox();
+                            AugustModel data = listData[index];
+                            augId = data.id;
+                            augMoneypaid = data.moneyPaid;
+                            augName = data.name;
+                            augComplete = data.completedPayement;
+                            augRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
                           },
-                        ));
-                  } else {
-                    return Center();
-                  }
-                }),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+
+          //-->dec
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<DecemberModel>>(
+                  future: DecemberDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<DecemberModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<DecemberModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            DecemberModel data = listData[index];
+                            decId = data.id;
+                            decMoneypaid = data.moneyPaid;
+                            decName = data.name;
+                            decComplete = data.completedPayement;
+                            decRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<FebruaryModel>>(
+                  future: FebruaryDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<FebruaryModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<FebruaryModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            FebruaryModel data = listData[index];
+                            febId = data.id;
+                            febMoneypaid = data.moneyPaid;
+                            febName = data.name;
+                            febComplete = data.completedPayement;
+                            febRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<JanuaryModel>>(
+                  future: JanuaryDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<JanuaryModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<JanuaryModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            JanuaryModel data = listData[index];
+                            janId = data.id;
+                            janMoneypaid = data.moneyPaid;
+                            janName = data.name;
+                            janComplete = data.completedPayement;
+                            janRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<JulyModel>>(
+                  future: JulyDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<JulyModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<JulyModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            JulyModel data = listData[index];
+                            julId = data.id;
+                            julMoneypaid = data.moneyPaid;
+                            julName = data.name;
+                            julComplete = data.completedPayement;
+                            julRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<JuneModel>>(
+                  future: JuneDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<JuneModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<JuneModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            JuneModel data = listData[index];
+                            junId = data.id;
+                            junMoneypaid = data.moneyPaid;
+                            junName = data.name;
+                            junComplete = data.completedPayement;
+                            junRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<MarchModel>>(
+                  future: MarchDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<MarchModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<MarchModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            MarchModel data = listData[index];
+                            marId = data.id;
+                            marMoneypaid = data.moneyPaid;
+                            marName = data.name;
+                            marComplete = data.completedPayement;
+                            marRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<MayModel>>(
+                  future: MayDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<MayModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<MayModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            MayModel data = listData[index];
+                            mayId = data.id;
+                            mayMoneypaid = data.moneyPaid;
+                            mayName = data.name;
+                            mayComplete = data.completedPayement;
+                            mayRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<NovemberModel>>(
+                  future: NovemberDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<NovemberModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<NovemberModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            NovemberModel data = listData[index];
+                            novId = data.id;
+                            novMoneypaid = data.moneyPaid;
+                            novName = data.name;
+                            novComplete = data.completedPayement;
+                            novRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<OctoberModel>>(
+                  future: OctoberDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<OctoberModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<OctoberModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            OctoberModel data = listData[index];
+                            octId = data.id;
+                            octMoneypaid = data.moneyPaid;
+                            octName = data.name;
+                            octComplete = data.completedPayement;
+                            octRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Expanded(
+              flex: -10,
+              child: FutureBuilder<List<SeptemberModel>>(
+                  future: SeptemberDb.db.getRawPayments(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<SeptemberModel>> snaps) {
+                    if (snaps.hasData) {
+                      List<SeptemberModel> listData = snaps.data!;
+                      return Container(
+                        alignment: Alignment.bottomRight,
+                        height: 0,
+                        width: 0,
+                        child: ListView.builder(
+                          itemCount: listData.length,
+                          itemBuilder: (context, index) {
+                            SeptemberModel data = listData[index];
+                            sepId = data.id;
+                            sepMoneypaid = data.moneyPaid;
+                            sepName = data.name;
+                            sepComplete = data.completedPayement;
+                            sepRemain = data.remainder;
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    }
+                  }),
+            ),
           ),
         ],
+        //---------------------------------------------------------------------------------------------GETTING DATA FROM DIFFERENT TABLES----------------------------------------------------------------------------------
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -341,25 +909,6 @@ class _DisplayRentersState extends State<DisplayRenters> {
     return SizedBox(
       child: InkWell(
         onTap: () {
-          tappedOnTenantConfirm = true;
-          aprilData = new AprilModel(
-            idapril: 2,
-            nameapr: "name",
-            moneyPaid: 1500,
-            completedPayement: 1,
-            moneyToPay: 5000,
-          );
-
-          AprilDb.db.insert(
-            new AprilModel(
-              idapril: 1,
-              nameapr: "e",
-              moneyPaid: 12003,
-              completedPayement: 1,
-              moneyToPay: 30000,
-            ),
-          );
-
           Navigator.of(context).pushNamed(
             '/tenants-page',
             arguments: {
@@ -370,8 +919,6 @@ class _DisplayRentersState extends State<DisplayRenters> {
               'registeredDate': tenant.date,
               'payedDate': tenant.payedDate,
               'newPayment': tenant.newPayment,
-              'newPayMonth': tenant.newPayMonth,
-              'monthRemainder': tenant.monthlyRemainder,
               'phoneNumber': tenant.PhoneNumber,
 
               //April
@@ -379,12 +926,84 @@ class _DisplayRentersState extends State<DisplayRenters> {
               'aprilMoneyPaid': aprMoneypaid,
               'aprilTenantName': aprName,
               'aprilCompletePaid': aprComplete,
+              'aprRemainder': aprRemain,
 
-              //August
-              // 'augustTenantid2': augustData.id,
-              // 'augustMoneyPaid': augustData.moneyPaid,
-              // 'augustTenantName': augustData.name,
-              // 'augustCompletePaid': augustData.completedPayement,
+              //august
+              'augTenantid2': augId,
+              'augMoneyPaid': augMoneypaid,
+              'augTenantName': augName,
+              'augCompletePaid': augComplete,
+              'augRemainder': augRemain,
+
+              //dec
+              'decTenantid2': decId,
+              'decMoneyPaid': decMoneypaid,
+              'decTenantName': decName,
+              'decCompletePaid': decComplete,
+              'decRemainder': decRemain,
+
+              //feb
+              'febTenantid2': febId,
+              'febMoneyPaid': febMoneypaid,
+              'febTenantName': febName,
+              'febCompletePaid': febComplete,
+              'febRemainder': febRemain,
+
+              //jan
+              'janTenantid2': janId,
+              'janMoneyPaid': janMoneypaid,
+              'janTenantName': janName,
+              'janCompletePaid': janComplete,
+              'janRemainder': janRemain,
+
+              //jul
+              'julTenantid2': julId,
+              'julMoneyPaid': julMoneypaid,
+              'julTenantName': julName,
+              'julCompletePaid': julComplete,
+              'julRemainder': julRemain,
+
+              //jun
+              'junTenantid2': junId,
+              'junMoneyPaid': junMoneypaid,
+              'junTenantName': junName,
+              'junCompletePaid': junComplete,
+              'junRemainder': junRemain,
+
+              //mar
+              'marTenantid2': marId,
+              'marMoneyPaid': marMoneypaid,
+              'marTenantName': marName,
+              'marCompletePaid': marComplete,
+              'marRemainder': marRemain,
+
+              //may
+              'mayTenantid2': mayId,
+              'mayMoneyPaid': mayMoneypaid,
+              'mayTenantName': mayName,
+              'mayCompletePaid': mayComplete,
+              'mayRemainder': mayRemain,
+
+              //nov
+              'novTenantid2': novId,
+              'novMoneyPaid': novMoneypaid,
+              'novTenantName': novName,
+              'novCompletePaid': novComplete,
+              'novRemainder': novRemain,
+
+              //oct
+              'octTenantid2': octId,
+              'octMoneyPaid': octMoneypaid,
+              'octTenantName': octName,
+              'octCompletePaid': octComplete,
+              'octRemainder': octRemain,
+
+              //sep
+              'sepTenantid2': sepId,
+              'sepMoneyPaid': sepMoneypaid,
+              'sepTenantName': sepName,
+              'sepCompletePaid': sepComplete,
+              'sepRemainder': sepRemain,
             },
           );
         },
@@ -513,64 +1132,6 @@ class _DisplayRentersState extends State<DisplayRenters> {
                     SizedBox(
                       height: 9,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '   Remaining:   ',
-                          style: TextStyle(
-                            fontFamily: 'DancingScript',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                          ), //change the remaining by implementing the adding a payment part
-                        ),
-                        tenant.monthlyRemainder! > 0 &&
-                                tenant.monthlyRemainder! < tenant.toPayAmount!
-                            ? Container(
-                                child: Text(
-                                  tenant.monthlyRemainder == 00
-                                      ? tenant.toPayAmount.toString()
-                                      : tenant.monthlyRemainder.toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'RobotoCondensed',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.red.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 1), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                child: Text(
-                                  '${tenant.monthlyRemainder == 00 ? tenant.toPayAmount.toString() : tenant.monthlyRemainder.toString()} cfa',
-                                  style: TextStyle(
-                                    fontFamily: 'RobotoCondensed',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.green.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 1), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                              ),
-                      ],
-                    ),
                   ],
                 ),
               ],
@@ -581,3 +1142,49 @@ class _DisplayRentersState extends State<DisplayRenters> {
     );
   }
 }
+//  tenant.monthlyRemainder! > 0 &&
+//                                 tenant.monthlyRemainder! < tenant.toPayAmount!
+//                             ? Container(
+//                                 child: Text(
+//                                   tenant.monthlyRemainder == -1
+//                                       ? tenant.toPayAmount.toString()
+//                                       : tenant.monthlyRemainder.toString(),
+//                                   style: TextStyle(
+//                                     fontFamily: 'RobotoCondensed',
+//                                     fontSize: 14,
+//                                     fontWeight: FontWeight.w700,
+//                                   ),
+//                                 ),
+//                                 decoration: BoxDecoration(
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.red.withOpacity(0.5),
+//                                       spreadRadius: 5,
+//                                       blurRadius: 7,
+//                                       offset: Offset(
+//                                           0, 1), // changes position of shadow
+//                                     ),
+//                                   ],
+//                                 ),
+//                               )
+//                             : Container(
+//                                 child: Text(
+//                                   '${tenant.monthlyRemainder == -1 ? tenant.toPayAmount.toString() : tenant.monthlyRemainder.toString()} cfa',
+//                                   style: TextStyle(
+//                                     fontFamily: 'RobotoCondensed',
+//                                     fontSize: 14,
+//                                     fontWeight: FontWeight.w700,
+//                                   ),
+//                                 ),
+//                                 decoration: BoxDecoration(
+//                                   boxShadow: [
+//                                     BoxShadow(
+//                                       color: Colors.green.withOpacity(0.5),
+//                                       spreadRadius: 5,
+//                                       blurRadius: 7,
+//                                       offset: Offset(
+//                                           0, 1), // changes position of shadow
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),

@@ -4,10 +4,36 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:landlord_tracking/helpers/tenants_db_helper.dart';
 
-import 'package:landlord_tracking/widgets/Pages/displayrenters.dart';
+import '../../helpers/monthHelpers/aprilHelper.dart';
+import '../../helpers/monthHelpers/augustHelper.dart';
+import '../../helpers/monthHelpers/decemberHelper.dart';
+import '../../helpers/monthHelpers/februaryHelper.dart';
+import '../../helpers/monthHelpers/januaryHelper.dart';
+import '../../helpers/monthHelpers/julyHelper.dart';
+import '../../helpers/monthHelpers/juneHelper%20.dart';
+import '../../helpers/monthHelpers/marchHelper.dart';
+import '../../helpers/monthHelpers/mayHelper.dart';
+import '../../helpers/monthHelpers/novemberHelper.dart';
+import '../../helpers/monthHelpers/octoberHelper.dart';
+import '../../helpers/monthHelpers/septemberHelper.dart';
+import '../../helpers/tenants_db_helper.dart';
+
+import '../../models/monthModels/aprilModel.dart';
+import '../../models/monthModels/augustModel.dart';
+import '../../models/monthModels/decemberModel.dart';
+import '../../models/monthModels/februaryModel.dart';
+import '../../models/monthModels/januaryModel.dart';
+import '../../models/monthModels/julyModel.dart';
+import '../../models/monthModels/juneModel%20.dart';
+import '../../models/monthModels/marchModel.dart';
+import '../../models/monthModels/mayModel.dart';
+import '../../models/monthModels/novemberModel.dart';
+import '../../models/monthModels/octoberModel.dart';
+import '../../models/monthModels/septemberModel.dart';
 import '../../models/tenants.dart';
+
+import '../../widgets/Pages/displayrenters.dart';
 
 class AddRenter extends StatefulWidget {
   @override
@@ -222,10 +248,118 @@ class _AddRenterState extends State<AddRenter> {
                             null,
                             0,
                             null,
-                            00,
+                            0,
                             int.parse(phoneController.text),
                           ),
                         );
+
+                        AprilDb.db.insert(
+                          new AprilModel(
+                              nameapr: lastNameController.text,
+                              moneyPaid: 0,
+                              completedPayement: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              remainder: -1),
+                        );
+                        AugustDb.db.insert(
+                          new AugustModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              completedPayement: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              remainder: -1),
+                        );
+
+                        DecemberDb.db.insert(
+                          new DecemberModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        FebruaryDb.db.insert(
+                          new FebruaryModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+                        JanuaryDb.db.insert(
+                          new JanuaryModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        JulyDb.db.insert(
+                          new JulyModel(
+                              name: firstNameController.text,
+                              moneyToPay: int.parse(amtController.text),
+                              moneyPaid: 0,
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        JuneDb.db.insert(
+                          new JuneModel(
+                              name: firstNameController.text,
+                              moneyToPay: int.parse(amtController.text),
+                              moneyPaid: 0,
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        MarchDb.db.insert(
+                          new MarchModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        MayDb.db.insert(
+                          new MayModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        NovemberDb.db.insert(
+                          new NovemberModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
+                        OctoberDb.db.insert(
+                          new OctoberModel(
+                            name: firstNameController.text,
+                            moneyPaid: 0,
+                            moneyToPay: int.parse(amtController.text),
+                            completedPayement: 0,
+                            remainder: -1,
+                          ),
+                        );
+
+                        SeptemberDb.db.insert(
+                          new SeptemberModel(
+                              name: firstNameController.text,
+                              moneyPaid: 0,
+                              moneyToPay: int.parse(amtController.text),
+                              completedPayement: 0,
+                              remainder: -1),
+                        );
+
                         setState(() {
                           _formKey.currentState!.validate();
 
