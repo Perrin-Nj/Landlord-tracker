@@ -204,16 +204,14 @@ class _DisplayRentersState extends State<DisplayRenters> {
                     //date selection
                     children: [
                       // ignore: deprecated_member_use
-                      RaisedButton(
-                        onPressed: () =>
-                            // to set the selected date to the screen...
-                            showDatepicker(),
-                        child: Text(
-                          'Change the date',
-                          textAlign: TextAlign.center,
+
+                      Text(
+                        DateFormat.yMEd().format(selectedDate!),
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColorDark,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-
                       SizedBox(
                         width: 15,
                       ),
@@ -227,7 +225,6 @@ class _DisplayRentersState extends State<DisplayRenters> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          selectedDate = null;
                           setState(() {
                             firstNController.clear();
                             lastNController.clear();
@@ -254,33 +251,32 @@ class _DisplayRentersState extends State<DisplayRenters> {
                       ElevatedButton(
                         onPressed: () async {
                           //print(DateTime.now());
-                          RenterDatabase.db.update(
-                              new Renter(
-                                firstNController.text,
-                                lastNController.text,
-                                int.parse(amtController.text),
-                                selectedDate!
-                                    .toIso8601String(), //return here to update for the new field
-                                "",
-                                0,
-                                "",
-                                0,
-                                int.parse(phoneController.text),
-                              ),
-                              tenant.id!);
-                          selectedDate = null;
-                          setState(() {
-                            firstNController.clear();
-                            lastNController.clear();
-                            amtController.clear();
-                            phoneController.clear();
-                          });
+                          // RenterDatabase.db.update(
+                          //     new Renter(
+                          //       firstNController.text,
+                          //       lastNController.text,
+                          //       int.parse(amtController.text),
+                          //       selectedDate!
+                          //           .toString(), //return here to update for the new field
+                          //       "",
+                          //       0,
+                          //       "",
+                          //       0,
+                          //       int.parse(phoneController.text),
+                          //     ),
+                          //     tenant.id!);
+                          // setState(() {
+                          //   firstNController.clear();
+                          //   lastNController.clear();
+                          //   amtController.clear();
+                          //   phoneController.clear();
+                          // });
                           Navigator.of(context).pop();
 
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
-                          }
+                          // FocusScopeNode currentFocus = FocusScope.of(context);
+                          // if (!currentFocus.hasPrimaryFocus) {
+                          //   currentFocus.unfocus();
+                          // }
                         },
                         child: const Text(
                           'Update               ',
@@ -351,52 +347,58 @@ class _DisplayRentersState extends State<DisplayRenters> {
               builder:
                   (BuildContext context, AsyncSnapshot<List<Renter>> snapshot) {
                 if (snapshot.hasData) {
-                  List<Renter>? tenants = snapshot.data;
-                  return Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context)
-                              .secondaryHeaderColor
-                              .withOpacity(0.2),
-                          spreadRadius: 2,
-                          blurRadius: 9,
-                          offset: Offset(0, 1),
-                          // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    height: 400,
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Scrollbar(
-                      isAlwaysShown: true,
-                      showTrackOnHover: true,
-                      controller: _scrollController,
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: tenants!.length,
-                        itemBuilder: (context, index) {
-                          final tenant = tenants[index];
-                          //to load new page when user taps item
-                          return listOfTenants(
-                            context,
-                            tenant,
-                            tenants,
-                            index,
-                          );
-                        },
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    List<Renter>? tenants = snapshot.data;
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 12,
                       ),
-                    ),
-                  );
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .secondaryHeaderColor
+                                .withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 9,
+                            offset: Offset(0, 1),
+                            // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      height: 400,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Scrollbar(
+                        isAlwaysShown: true,
+                        showTrackOnHover: true,
+                        controller: _scrollController,
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: tenants!.length,
+                          itemBuilder: (context, index) {
+                            final tenant = tenants[index];
+                            //to load new page when user taps item
+                            return listOfTenants(
+                              context,
+                              tenant,
+                              tenants,
+                              index,
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return Center(
+                      child: Text('Error, Database Corrupted!!'),
+                    );
+                  }
                 } else {
                   return Center(
                     child: Text('No Tenants added yet'),
@@ -1042,6 +1044,18 @@ class _DisplayRentersState extends State<DisplayRenters> {
                             tenants.removeAt(index);
                           }),
                         );
+                    JanuaryDb.db.delete(tenant.id!);
+                    FebruaryDb.db.delete(tenant.id!);
+                    MarchDb.db.delete(tenant.id!);
+                    AprilDb.db.delete(tenant.id!);
+                    AprilDb.db.delete(tenant.id!);
+                    JuneDb.db.delete(tenant.id!);
+                    JulyDb.db.delete(tenant.id!);
+                    AugustDb.db.delete(tenant.id!);
+                    SeptemberDb.db.delete(tenant.id!);
+                    OctoberDb.db.delete(tenant.id!);
+                    NovemberDb.db.delete(tenant.id!);
+                    DecemberDb.db.delete(tenant.id!);
                   }
                 }),
             IconSlideAction(
@@ -1086,7 +1100,7 @@ class _DisplayRentersState extends State<DisplayRenters> {
                         ],
                       ),
                       child: Text(
-                        '${tenant.toPayAmount.toString()}',
+                        '${tenant.toPayAmount.toString()} cfa',
                         style: TextStyle(
                             fontFamily: 'RobotoCondensed',
                             fontSize: 15,
@@ -1110,7 +1124,7 @@ class _DisplayRentersState extends State<DisplayRenters> {
                     Row(
                       children: [
                         Text(
-                          '   Last Pay: ',
+                          '   Entry Date: ',
                           style: TextStyle(
                             fontFamily: 'DancingScript',
                             fontSize: 20,
@@ -1118,9 +1132,9 @@ class _DisplayRentersState extends State<DisplayRenters> {
                           ),
                         ),
                         Text(
-                          tenant.payedDate != null
-                              ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(tenant.payedDate!))}'
-                              : '${DateFormat.yMMMMEEEEd().format(DateTime.parse(tenant.date!))}',
+                          selectedDate == null
+                              ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(tenant.date!))}'
+                              : '${DateFormat.yMMMMEEEEd().format(selectedDate!)}',
                           style: TextStyle(
                               fontFamily: 'RobotoCondensed',
                               fontSize: 18,
@@ -1142,49 +1156,3 @@ class _DisplayRentersState extends State<DisplayRenters> {
     );
   }
 }
-//  tenant.monthlyRemainder! > 0 &&
-//                                 tenant.monthlyRemainder! < tenant.toPayAmount!
-//                             ? Container(
-//                                 child: Text(
-//                                   tenant.monthlyRemainder == -1
-//                                       ? tenant.toPayAmount.toString()
-//                                       : tenant.monthlyRemainder.toString(),
-//                                   style: TextStyle(
-//                                     fontFamily: 'RobotoCondensed',
-//                                     fontSize: 14,
-//                                     fontWeight: FontWeight.w700,
-//                                   ),
-//                                 ),
-//                                 decoration: BoxDecoration(
-//                                   boxShadow: [
-//                                     BoxShadow(
-//                                       color: Colors.red.withOpacity(0.5),
-//                                       spreadRadius: 5,
-//                                       blurRadius: 7,
-//                                       offset: Offset(
-//                                           0, 1), // changes position of shadow
-//                                     ),
-//                                   ],
-//                                 ),
-//                               )
-//                             : Container(
-//                                 child: Text(
-//                                   '${tenant.monthlyRemainder == -1 ? tenant.toPayAmount.toString() : tenant.monthlyRemainder.toString()} cfa',
-//                                   style: TextStyle(
-//                                     fontFamily: 'RobotoCondensed',
-//                                     fontSize: 14,
-//                                     fontWeight: FontWeight.w700,
-//                                   ),
-//                                 ),
-//                                 decoration: BoxDecoration(
-//                                   boxShadow: [
-//                                     BoxShadow(
-//                                       color: Colors.green.withOpacity(0.5),
-//                                       spreadRadius: 5,
-//                                       blurRadius: 7,
-//                                       offset: Offset(
-//                                           0, 1), // changes position of shadow
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),

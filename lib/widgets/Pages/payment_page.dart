@@ -53,63 +53,65 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         title: Text('$name1 $name2'),
       ),
-      body: Column(
-        children: [
-          Card(
-            color: Theme.of(context).cardColor,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Last Pay:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Card(
+              color: Theme.of(context).cardColor,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Last Pay:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'DancingScript',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(
-                      payedDate != null
-                          ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(payedDate)).toString()}'
-                          : '${DateFormat.yMMMMEEEEd().format(DateTime.parse(registeredDate)).toString()}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w300,
-                        color: Theme.of(context).primaryColor,
+                      SizedBox(width: 15),
+                      Text(
+                        payedDate != null
+                            ? '${DateFormat.yMMMMEEEEd().format(DateTime.parse(payedDate)).toString()}'
+                            : '${DateFormat.yMMMMEEEEd().format(DateTime.parse(registeredDate)).toString()}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'DancingScript',
+                          fontWeight: FontWeight.w300,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      'Phone Number:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w500,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Phone Number:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'DancingScript',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(
-                      phone.toString(),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'DancingScript',
-                        fontWeight: FontWeight.w300,
-                        color: Theme.of(context).primaryColor,
+                      SizedBox(width: 15),
+                      Text(
+                        phone.toString(),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'DancingScript',
+                          fontWeight: FontWeight.w300,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
-                    ),
-                  ],
-                ), // //(if lastpay from dbPayments is null, then show no last pay, else, show a last pay)
-              ],
+                    ],
+                  ), // //(if lastpay from dbPayments is null, then show no last pay, else, show a last pay)
+                ],
+              ),
             ),
-          ),
-          const MyCustomForm(),
-        ],
+            MyCustomForm()
+          ],
+        ),
       ),
     );
   }
@@ -133,7 +135,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   void showDatepicker() {
     showDatePicker(
       context: context,
-      initialDate: DateTime(2021),
+      initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
@@ -145,6 +147,8 @@ class MyCustomFormState extends State<MyCustomForm> {
       });
     });
   }
+
+  List<bool> listOfCompletionPay = [];
 
   List listMonth = [
     "january",
@@ -182,8 +186,10 @@ class MyCustomFormState extends State<MyCustomForm> {
     int novrem,
     int octrem,
     int seprem,
-    List<bool> listOfCompletionPay,
   ) {
+    for (int i = 0; i < 13; i++) {
+      listOfCompletionPay.add(false);
+    }
     //switching for completion of payment
     switch (chosenValue) {
       case "april":
@@ -455,11 +461,6 @@ class MyCustomFormState extends State<MyCustomForm> {
     //sep
     final seprem = routeArgs['sepRemainder'];
 
-    List<bool> listOfCompletionPay = [];
-    for (int i = 0; i < 13; i++) {
-      listOfCompletionPay.add(false);
-    }
-
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -469,10 +470,10 @@ class MyCustomFormState extends State<MyCustomForm> {
 
           //come back here for last payments, should use db
           SizedBox(
-            height: 8,
+            height: 40,
           ),
           Divider(
-            color: Colors.green,
+            color: Colors.cyan,
             indent: 12,
             height: 12,
             thickness: 8,
@@ -487,10 +488,13 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
           ),
           Divider(
-            color: Colors.green,
+            color: Colors.cyan,
             indent: 12,
             height: 12,
             thickness: 8,
+          ),
+          SizedBox(
+            height: 30,
           ),
           Container(
             padding: EdgeInsets.only(
@@ -507,7 +511,14 @@ class MyCustomFormState extends State<MyCustomForm> {
               iconSize: 35,
 
               isExpanded: true,
-              hint: Text('Select the Month'),
+              hint: Text(
+                'Select the Month',
+                style: TextStyle(
+                    fontFamily: 'DancingScript',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 22,
+                    color: Theme.of(context).primaryColor),
+              ),
               value: chosenValue,
               onChanged: (newVal) {
                 setState(() {
@@ -517,7 +528,14 @@ class MyCustomFormState extends State<MyCustomForm> {
               items: listMonth.map((e) {
                 return DropdownMenuItem(
                   value: e,
-                  child: Text(e),
+                  child: Text(
+                    e,
+                    style: TextStyle(
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.w800,
+                        fontSize: 22,
+                        color: Colors.black87),
+                  ),
                 );
               }).toList(),
             ),
@@ -627,7 +645,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                             novrem,
                             octrem,
                             seprem,
-                            listOfCompletionPay,
                           );
 
                           ScaffoldMessenger.of(context).showSnackBar(

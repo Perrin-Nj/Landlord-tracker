@@ -85,6 +85,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Visibility january_listPayment() {
     return Visibility(
       visible: true,
@@ -153,7 +154,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -186,7 +187,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -200,7 +201,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -339,6 +340,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility february_listPayment() {
     return Visibility(
       visible: true,
@@ -407,7 +409,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -440,7 +442,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -454,7 +456,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -593,6 +595,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility march_listPayment() {
     return Visibility(
       visible: true,
@@ -661,7 +664,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -694,7 +697,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -708,7 +711,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -847,6 +850,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility april_listPayment() {
     return Visibility(
       visible: true,
@@ -948,7 +952,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -962,7 +966,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -983,7 +987,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                           ],
                                         ),
                                         child: Text(
-                                          data.moneyToPay.toString(),
+                                          '${data.moneyToPay.toString()} cfa',
                                           style: TextStyle(
                                             fontFamily: 'Raleway',
                                             fontWeight: FontWeight.w200,
@@ -1006,7 +1010,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                               ],
                                             ),
                                             child: Text(
-                                              data.remainder.toString(),
+                                              '${data.remainder.toString()} cfa',
                                               style: TextStyle(
                                                 fontFamily: 'Raleway',
                                                 fontWeight: FontWeight.w200,
@@ -1028,7 +1032,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                               ],
                                             ),
                                             child: Text(
-                                              data.remainder.toString(),
+                                              '${data.remainder.toString()}',
                                               style: TextStyle(
                                                 fontFamily: 'Raleway',
                                                 fontWeight: FontWeight.w200,
@@ -1101,6 +1105,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility may_listPayment() {
     return Visibility(
       visible: true,
@@ -1168,7 +1173,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1201,7 +1206,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1215,7 +1220,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -1354,6 +1359,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility june_listPayment() {
     return Visibility(
       visible: true,
@@ -1422,7 +1428,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1455,7 +1461,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1469,7 +1475,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -1608,6 +1614,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility july_listPayment() {
     return Visibility(
       visible: true,
@@ -1676,7 +1683,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1723,7 +1730,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -1862,6 +1869,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility august_listPayment() {
     return Visibility(
       visible: true,
@@ -1871,7 +1879,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
           builder:
               (BuildContext context, AsyncSnapshot<List<AugustModel>> snaps) {
             if (snaps.hasData) {
-              print("Getting April data");
+              print("Getting aug data");
               List<AugustModel>? listData = snaps.data!;
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -1930,7 +1938,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1963,7 +1971,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -1977,7 +1985,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -2116,6 +2124,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility september_listPayment() {
     return Visibility(
       visible: true,
@@ -2125,7 +2134,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
           builder: (BuildContext context,
               AsyncSnapshot<List<SeptemberModel>> snaps) {
             if (snaps.hasData) {
-              print("Getting April data");
+              print("Getting sep data");
               List<SeptemberModel>? listData = snaps.data!;
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -2184,7 +2193,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2217,7 +2226,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2231,7 +2240,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -2370,6 +2379,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility october_listPayment() {
     return Visibility(
       visible: true,
@@ -2379,7 +2389,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
           builder:
               (BuildContext context, AsyncSnapshot<List<OctoberModel>> snaps) {
             if (snaps.hasData) {
-              print("Getting April data");
+              print("Getting oct data");
               List<OctoberModel>? listData = snaps.data!;
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -2438,7 +2448,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2471,7 +2481,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2485,7 +2495,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -2624,6 +2634,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility november_listPayment() {
     return Visibility(
       visible: true,
@@ -2633,7 +2644,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
           builder:
               (BuildContext context, AsyncSnapshot<List<NovemberModel>> snaps) {
             if (snaps.hasData) {
-              print("Getting April data");
+              print("Getting november data");
               List<NovemberModel>? listData = snaps.data!;
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -2692,7 +2703,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyToPay.toString(),
+                                    '${data.moneyToPay.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2725,7 +2736,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2739,7 +2750,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,
@@ -2878,6 +2889,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Visibility december_listPayment() {
     return Visibility(
       visible: true,
@@ -2887,7 +2899,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
           builder:
               (BuildContext context, AsyncSnapshot<List<DecemberModel>> snaps) {
             if (snaps.hasData) {
-              print("Getting April data");
+              print("Getting december data");
               List<DecemberModel>? listData = snaps.data!;
               return Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
@@ -2979,7 +2991,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                                     ],
                                   ),
                                   child: Text(
-                                    data.moneyPaid.toString(),
+                                    '${data.moneyPaid.toString()} cfa',
                                     style: TextStyle(
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w200,
@@ -2993,7 +3005,7 @@ class _MonthlyDisplayState extends State<MonthlyDisplay> {
                             Row(
                               children: [
                                 Text(
-                                  'Remainder:    ',
+                                  'Remaining:    ',
                                   style: TextStyle(
                                     fontFamily: 'DancingScript',
                                     fontSize: 20,

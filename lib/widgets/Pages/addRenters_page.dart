@@ -60,7 +60,7 @@ class _AddRenterState extends State<AddRenter> {
   void showDatepicker() {
     showDatePicker(
       context: context,
-      initialDate: DateTime(2021),
+      initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
@@ -109,10 +109,7 @@ class _AddRenterState extends State<AddRenter> {
                         controller: firstNController,
                         keyboardType: TextInputType.name,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              value.contains(RegExp(r'[0-9]')) ||
-                              value.contains(RegExp('&,(,),\$,*,^,+,²,|,'))) {
+                          if (value == null) {
                             return 'Please make sure to enter a valid First name';
                           }
                           return null;
@@ -127,10 +124,7 @@ class _AddRenterState extends State<AddRenter> {
                   controller: lastNController,
                   keyboardType: TextInputType.name,
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.contains(RegExp(r'[0-9]')) ||
-                        value.contains(RegExp('&,(,),\$,*,^,+,²,|,'))) {
+                    if (value == null) {
                       return 'Please make sure to enter a valid Last name';
                     }
                     return null;
@@ -139,13 +133,12 @@ class _AddRenterState extends State<AddRenter> {
                 ),
                 TextFormField(
                   textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(labelText: 'Monthly Loan Amount'),
+                  decoration:
+                      InputDecoration(labelText: 'Monthly Loan Amount (cfa)'),
                   controller: amtController,
                   keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.contains(RegExp(r'[A-Z]'))) {
+                    if (value == null) {
                       return 'Please enter correct phone number';
                     }
                     return null;
@@ -157,9 +150,7 @@ class _AddRenterState extends State<AddRenter> {
                   controller: phoneController,
                   keyboardType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.contains(RegExp(r'[A-Z]'))) {
+                    if (value == null) {
                       return 'Please enter correct phone number';
                     }
                     return null;
@@ -238,13 +229,108 @@ class _AddRenterState extends State<AddRenter> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        //print(DateTime.now());
+                        // JanuaryDb.db.delete(1);
+                        // JanuaryDb.db.delete(2);
+                        // JanuaryDb.db.delete(3);
+                        // JanuaryDb.db.delete(4);
+                        // JanuaryDb.db.delete(5);
+                        // JanuaryDb.db.delete(6);
+                        // JanuaryDb.db.delete(7);
+
+                        // FebruaryDb.db.delete(1);
+                        // FebruaryDb.db.delete(2);
+                        // FebruaryDb.db.delete(3);
+                        // FebruaryDb.db.delete(4);
+                        // FebruaryDb.db.delete(5);
+                        // FebruaryDb.db.delete(6);
+                        // FebruaryDb.db.delete(7);
+
+                        // MarchDb.db.delete(1);
+                        // MarchDb.db.delete(2);
+                        // MarchDb.db.delete(3);
+                        // MarchDb.db.delete(4);
+                        // MarchDb.db.delete(5);
+                        // MarchDb.db.delete(6);
+                        // MarchDb.db.delete(7);
+
+                        // AprilDb.db.delete(1);
+                        // AprilDb.db.delete(2);
+                        // AprilDb.db.delete(3);
+                        // AprilDb.db.delete(4);
+                        // AprilDb.db.delete(5);
+                        // AprilDb.db.delete(6);
+                        // AprilDb.db.delete(7);
+
+                        // AprilDb.db.delete(1);
+                        // MayDb.db.delete(2);
+                        // MayDb.db.delete(3);
+                        // MayDb.db.delete(4);
+                        // MayDb.db.delete(5);
+                        // MayDb.db.delete(6);
+                        // MayDb.db.delete(7);
+
+                        // JuneDb.db.delete(1);
+                        // JuneDb.db.delete(2);
+                        // JuneDb.db.delete(3);
+                        // JuneDb.db.delete(4);
+                        // JuneDb.db.delete(5);
+                        // JuneDb.db.delete(6);
+                        // JuneDb.db.delete(7);
+
+                        // JulyDb.db.delete(1);
+                        // JulyDb.db.delete(2);
+                        // JulyDb.db.delete(3);
+                        // JulyDb.db.delete(4);
+                        // JulyDb.db.delete(5);
+                        // JulyDb.db.delete(6);
+                        // JulyDb.db.delete(7);
+
+                        // AugustDb.db.delete(1);
+                        // AugustDb.db.delete(2);
+                        // AugustDb.db.delete(3);
+                        // AugustDb.db.delete(4);
+                        // AugustDb.db.delete(5);
+                        // AugustDb.db.delete(6);
+                        // AugustDb.db.delete(7);
+
+                        // SeptemberDb.db.delete(1);
+                        // SeptemberDb.db.delete(2);
+                        // SeptemberDb.db.delete(3);
+                        // SeptemberDb.db.delete(4);
+                        // SeptemberDb.db.delete(5);
+                        // SeptemberDb.db.delete(6);
+                        // SeptemberDb.db.delete(7);
+
+                        // OctoberDb.db.delete(1);
+                        // OctoberDb.db.delete(2);
+                        // OctoberDb.db.delete(3);
+                        // OctoberDb.db.delete(4);
+                        // OctoberDb.db.delete(5);
+                        // OctoberDb.db.delete(6);
+                        // OctoberDb.db.delete(7);
+
+                        // NovemberDb.db.delete(1);
+                        // NovemberDb.db.delete(2);
+                        // NovemberDb.db.delete(3);
+                        // NovemberDb.db.delete(4);
+                        // NovemberDb.db.delete(5);
+                        // NovemberDb.db.delete(6);
+                        // NovemberDb.db.delete(7);
+
+                        // DecemberDb.db.delete(1);
+                        // DecemberDb.db.delete(2);
+                        // DecemberDb.db.delete(3);
+                        // DecemberDb.db.delete(4);
+                        // DecemberDb.db.delete(5);
+                        // DecemberDb.db.delete(6);
+                        // DecemberDb.db.delete(7);
+
                         RenterDatabase.db.insert(
                           new Renter(
                             firstNController.text,
                             lastNController.text,
                             int.parse(amtController.text),
-                            selectDate!.toString(),
+                            selectDate!.toString(), //Entry date
                             null,
                             0,
                             null,
